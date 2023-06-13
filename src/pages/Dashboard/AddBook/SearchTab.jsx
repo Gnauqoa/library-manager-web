@@ -5,13 +5,28 @@ import {
   SvgIcon,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ReactComponent as IconClose } from "assets/icon/icon_close.svg";
 import { ReactComponent as IconSearch } from "assets/icon/icon_search.svg";
 import useAPI from "hooks/useApi";
 
-const SearchTab = ({ open, title, onClose, placeholder, queryFn, type }) => {
+const SearchTab = ({
+  open,
+  title,
+  onClose,
+  placeholder,
+  queryFn,
+  type,
+  onSelect,
+}) => {
   const searchRequest = useAPI({ queryFn: queryFn });
+  const handleSelect = (data) => {
+    onSelect(data);
+    onClose();
+  };
+  useEffect(() => {
+    searchRequest.reset();
+  }, [open]);
   return (
     <Box
       sx={{
@@ -46,8 +61,12 @@ const SearchTab = ({ open, title, onClose, placeholder, queryFn, type }) => {
               />
             </IconButton>
           </div>
-          <ResultSearch request={searchRequest} type={type} />
           <SearchBox placeholder={placeholder} onSearch={searchRequest.run} />
+          <ResultSearch
+            onSelect={handleSelect}
+            request={searchRequest}
+            type={type}
+          />
         </>
       ) : (
         <></>
@@ -55,7 +74,7 @@ const SearchTab = ({ open, title, onClose, placeholder, queryFn, type }) => {
     </Box>
   );
 };
-const ResultSearch = ({ request, type }) => {
+const ResultSearch = ({ request, type, onSelect }) => {
   if (request.loading)
     return (
       <div className="flex flex-col w-full items-center">
@@ -64,25 +83,44 @@ const ResultSearch = ({ request, type }) => {
     );
   if (request.isFetched)
     return (
-      <div className="flex flex-col h-full overflow-auto">
+      <div className="flex flex-col h-full overflow-auto max-h-[400px]">
         {request.response.items.map((data) => (
-          <ResultCard key={data.id} type={type} {...data} />
+          <ResultCard
+            onSelect={() => onSelect(data)}
+            key={data.id}
+            type={type}
+            {...data}
+          />
         ))}
       </div>
     );
   return <></>;
 };
 
-const ResultCard = ({ type }) => {
+const ResultCard = ({ type, img_url, name, onSelect }) => {
+  if (type === "author")
+    return (
+      <div
+        onClick={onSelect}
+        className="flex flex-row gap-3 items-center px-4 py-2 rounded-[12px] w-full hover:bg-[#568ABB33] transition-all cursor-pointer"
+      >
+        <img alt="" src={img_url} className="h-[50px] w-auto " />
+        <Typography
+          sx={{ fontSize: 14, fontWeight: 400, fontFamily: "Poppins" }}
+        >
+          {name}
+        </Typography>
+      </div>
+    );
   return <></>;
 };
 const SearchBox = ({ placeholder, onSearch }) => {
   const [value, setValue] = useState("");
   const handleSearch = () => {
-    onSearch(value);
+    onSearch({ name: value });
   };
   return (
-    <div className="flex flex-row w-full items-center gap-4 pl-4 pr-[5px] py-[5px] border-[#2E4958] border-[2px] rounded-[25px] overflow-hidden">
+    <div className="flex flex-row w-full items-center gap-4 pl-4 pr-[5px] py-[12px] border-[#2E4958] border-[2px] rounded-[25px] overflow-hidden">
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -97,12 +135,16 @@ const SearchBox = ({ placeholder, onSearch }) => {
         sx={{
           background: "#266E96",
           color: "#fff",
-          width: 40,
-          height: 40,
+          width: 32,
+          height: 32,
           ":hover": { background: "#242D3F" },
         }}
       >
-        <SvgIcon inheritViewBox={true} component={IconSearch}></SvgIcon>
+        <SvgIcon
+          sx={{ width: "100%", height: "auto" }}
+          inheritViewBox={true}
+          component={IconSearch}
+        ></SvgIcon>
       </IconButton>
     </div>
   );

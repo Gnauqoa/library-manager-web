@@ -1,8 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import MyInput from "components/MyInput";
 import UploadImage from "components/UploadImg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchTab from "./SearchTab";
+import { searchAuthor } from "services/author";
+import CategoryInput from "./CategoryInput";
 
 const AddBook = () => {
   const [searchBox, setSearchBox] = useState({
@@ -12,6 +14,13 @@ const AddBook = () => {
     onSelect: null,
     placeholder: "",
   });
+  const [formValue, setFormValue] = useState({
+    author: { name: "" },
+    category: [""],
+  });
+  useEffect(() => {
+    console.log(formValue);
+  }, [formValue]);
   return (
     <div className="flex flex-row gap-[15px] w-full justify-center">
       <Box
@@ -40,20 +49,28 @@ const AddBook = () => {
           <UploadImage />
         </div>
         <MyInput label="Book name:" placeholder="Book name" />
-        <div className="flex flex-row">
-          <MyInput
-            onClick={() =>
-              setSearchBox({
-                open: true,
-                title: "Choose author",
-                placeholder: "Author name",
-              })
-            }
-            readOnly={true}
-            label="Author:"
-            placeholder="Author"
-          />
-        </div>
+        <MyInput
+          value={formValue?.author?.name}
+          onClick={() =>
+            setSearchBox({
+              open: true,
+              title: "Choose author",
+              placeholder: "Author name",
+              type: "author",
+              queryFn: (params) => searchAuthor(params),
+              onSelect: (data) => {
+                setFormValue((prev) => ({ ...prev, author: data }));
+              },
+            })
+          }
+          readOnly={true}
+          label="Author:"
+          placeholder="Author"
+        />
+        <CategoryInput
+          total_category={formValue.category}
+          setTotalCategory={setFormValue}
+        />
       </Box>
       <SearchTab
         {...searchBox}
