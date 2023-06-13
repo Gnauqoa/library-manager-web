@@ -13,7 +13,7 @@ const ManagerRouter = () => {
     if (loginStatus.isLogin)
       return (
         <Container>
-          <div className="flex flex-row gap-[80px] pt-[60px]">
+          <div className="flex flex-row gap-[80px] py-[60px]">
             <MenuNavigate />
             <Outlet />
           </div>

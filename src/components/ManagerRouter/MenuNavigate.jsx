@@ -18,7 +18,7 @@ const MenuNavigate = () => {
         Librarian Home
       </Typography>
       <div className="flex flex-col w-[260px]">
-        <MenuItem icon={IconDashBoard} name="Dashboard" value="Dashboard" />
+        <MenuItem icon={IconDashBoard} name="Dashboard" value="dashboard" />
         <MenuItem icon={IconBookSquare} name="Book lists" value="BookList" />
       </div>
     </div>

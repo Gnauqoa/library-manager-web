@@ -19,8 +19,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="" element={<NormalLayout />}>
-              <Route element={<ManagerRouter />}>
-                <Route index path="dashboard" element={<DashBoard />} />
+              <Route path="" element={<ManagerRouter />}>
+                <Route index path="dashboard/:tab?" element={<DashBoard />} />
               </Route>
             </Route>
             <Route path="auth" element={<AuthLayout />}>
