@@ -13,6 +13,11 @@ const TabBar = () => {
     </div>
   );
 };
+const TabControl = ({ value, children }) => {
+  const { tab } = useParams();
+  if (tab === value) return <>{children}</>;
+  return <></>;
+};
 const TabItem = ({ text, value }) => {
   const { tab } = useParams();
   const isSelect = value === tab;
@@ -45,4 +50,5 @@ const TabItem = ({ text, value }) => {
     </Link>
   );
 };
+export { TabControl };
 export default TabBar;
