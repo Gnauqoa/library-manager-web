@@ -18,6 +18,7 @@ const useAPI = ({ queryFn, getNow, fnParam }) => {
     return queryFn(param)
       .then((res) => {
         setResponse(res);
+        console.log("Here")
         return Promise.resolve(res);
       })
       .catch((err) => {
@@ -41,7 +42,7 @@ const useAPI = ({ queryFn, getNow, fnParam }) => {
             });
         }
         setResponse(null);
-        toast.error(err.message);
+        toast.error(err.response.data.message);
         setError(err);
         return Promise.reject(err);
       })
