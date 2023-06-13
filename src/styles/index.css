@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hide-scrollBar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
