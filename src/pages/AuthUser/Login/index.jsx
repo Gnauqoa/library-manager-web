@@ -24,7 +24,6 @@ const UserLogin = () => {
     loginRequest
       .run()
       .then((res) => {
-        console.log("success", res);
         dispatch(storeUser(res.data.data));
         dispatch(setLoginStatus({ isChecking: false, isLogin: true }));
         toast.success("Login success");

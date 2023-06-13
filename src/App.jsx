@@ -8,6 +8,8 @@ import UserLogin from "pages/AuthUser/Login";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AutoLogin from "components/AutoLogin";
+import DashBoard from "pages/Dashboard";
+import ManagerRouter from "components/ManagerRouter";
 
 function App() {
   return (
@@ -16,10 +18,14 @@ function App() {
         <AutoLogin />
         <BrowserRouter>
           <Routes>
-            <Route path="" element={<NormalLayout />}></Route>
+            <Route path="" element={<NormalLayout />}>
+              <Route element={<ManagerRouter />}>
+                <Route index path="dashboard" element={<DashBoard />} />
+              </Route>
+            </Route>
             <Route path="auth" element={<AuthLayout />}>
               <Route index path="login" element={<UserLogin />} />
-            </Route>
+            </Route>{" "}
           </Routes>
         </BrowserRouter>
       </LocalizationProvider>
