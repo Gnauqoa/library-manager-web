@@ -30,3 +30,20 @@ export const searchBook = async (params) => {
     .then((res) => res.data);
   return data;
 };
+export const getBookList = async (params) => {
+  const { data } = await axiosForLibraryAPI
+    .request({
+      method: "get",
+      url: "/v1/book/bookList",
+      params: params,
+    })
+    .then((res) => res.data);
+  return data;
+};
+export const getCurrentBook = async (id) => {
+  const { data } = await axiosForLibraryAPI.request({
+    method: "get",
+    url: `/v1/book/currentBook/${id}`,
+  });
+  return data;
+};

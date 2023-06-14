@@ -39,7 +39,6 @@ const MyInput = ({
         <></>
       )}
       <Input
-    
         onBlur={onBlur}
         value={value}
         autoComplete={"none"}
@@ -59,6 +58,7 @@ const MyInput = ({
             boxShadow: " 0px 0px 5px 5px #C3E8FF",
           },
           transition: "all 0.15s",
+          ...sx,
         }}
         placeholder={placeholder}
         disableUnderline={true}
