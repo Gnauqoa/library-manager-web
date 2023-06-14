@@ -102,7 +102,7 @@ const ResultSearch = ({ request, type, onSelect }) => {
 };
 
 const ResultCard = ({ type, img_url, name, onSelect, address }) => {
-  if (type === "author")
+  if (type === "author" || type === "book")
     return (
       <div
         onClick={onSelect}
