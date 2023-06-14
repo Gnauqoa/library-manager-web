@@ -9,6 +9,7 @@ const LightTooltip = styled(({ className, ...props }) => (
     backgroundColor: "transparent",
     padding: 0,
     boxShadow: "0px 0px 8px 0px rgba(0,0,0,0.34)",
+    height: "100%",
   },
 }));
 const CustomTooltip = ({ children, ...props }) => {
