@@ -27,7 +27,6 @@ const AddBook = () => {
       </div>
       <div className="flex flex-row gap-[15px] w-full justify-center">
         <div>
-          {" "}
           <Box
             sx={{
               display: "flex",

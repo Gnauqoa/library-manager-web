@@ -6,4 +6,9 @@ export const searchPublisher = async (params) => {
     .then((res) => res.data);
   return data;
 };
-
+export const addPublisher = async (body) => {
+  const { data } = await axiosForLibraryAPI
+    .request({ method: "post", url: "/v1/manager/addPublisher", data: body })
+    .then((res) => res.data);
+  return data;
+};

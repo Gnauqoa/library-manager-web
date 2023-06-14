@@ -1,4 +1,4 @@
-import { Button, SvgIcon } from "@mui/material";
+import { Backdrop, Button, CircularProgress, SvgIcon } from "@mui/material";
 import MyInput from "components/MyInput";
 import useAPI from "hooks/useApi";
 import React from "react";
@@ -24,6 +24,9 @@ const AddOldBook = ({ formValue, setFormValue, setSearchBox }) => {
   };
   return (
     <div className="flex flex-col gap-6">
+      <Backdrop open={saveRequest.loading}>
+        <CircularProgress />
+      </Backdrop>
       <MyInput
         label="Book"
         value={formValue?.book?.name}

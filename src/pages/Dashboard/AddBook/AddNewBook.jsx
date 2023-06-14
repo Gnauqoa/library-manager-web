@@ -1,17 +1,29 @@
-import { Button, SvgIcon, Typography, styled } from "@mui/material";
+import {
+  Backdrop,
+  Button,
+  CircularProgress,
+  SvgIcon,
+  Typography,
+  styled,
+} from "@mui/material";
 import MyInput from "components/MyInput";
 import UploadImage from "components/UploadImg";
-import React from "react";
+import React, { useState } from "react";
 import { searchAuthor } from "services/author";
 import CategoryInput from "./CategoryInput";
 import { DatePicker } from "@mui/x-date-pickers";
 import { searchPublisher } from "services/publisher";
 import { ReactComponent as IconBookSave } from "assets/icon/icon_book_saved.svg";
+import { ReactComponent as IconWriter } from "assets/icon/icon_writer.svg";
+import { ReactComponent as IconPublishing } from "assets/icon/icon_publishing.svg";
+
 import useAPI from "hooks/useApi";
 import { addNewBook } from "services/book";
 import SelectAtom from "components/MySelect";
 import { language } from "services/language";
 import { toast } from "react-toastify";
+import AddAuthorModal from "./AddAuthorModal";
+import AddPublisherModal from "./AddPublisherModal";
 
 const DateDisplay = styled(DatePicker)(({ theme }) => ({
   ".MuiInputBase-root": {
@@ -31,6 +43,9 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
   const saveRequest = useAPI({
     queryFn: (form_data) => addNewBook(form_data),
   });
+  const [addAuthor, setAddAuthor] = useState(false);
+  const [addPublisher, setAddPublisher] = useState(false);
+
   const isDisable = () => {
     return !(
       formValue.book_image &&
@@ -75,9 +90,47 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
   };
   return (
     <div className="flex flex-col gap-6">
+      <Backdrop open={saveRequest.loading}>
+        <CircularProgress />
+      </Backdrop>
+      <AddAuthorModal open={addAuthor} onClose={() => setAddAuthor(false)} />
+      <AddPublisherModal
+        open={addPublisher}
+        onClose={() => setAddPublisher(false)}
+      />
       <Typography sx={{ fontSize: 24, fontWeight: 600, fontFamily: "Poppins" }}>
         Add new book
       </Typography>
+      <div className="flex flex-row items-center gap-2">
+        <Button
+          onClick={() => setAddAuthor(true)}
+          sx={{ width: "100%" }}
+          variant="primary filled"
+          startIcon={
+            <SvgIcon
+              inheritViewBox={true}
+              component={IconWriter}
+              sx={{ width: 24, height: 24 }}
+            />
+          }
+        >
+          Add author
+        </Button>
+        <Button
+          onClick={() => setAddPublisher(true)}
+          sx={{ width: "100%" }}
+          variant="primary filled"
+          startIcon={
+            <SvgIcon
+              inheritViewBox={true}
+              component={IconPublishing}
+              sx={{ width: 24, height: 24 }}
+            />
+          }
+        >
+          Add publisher
+        </Button>
+      </div>
       <Typography sx={{ fontSize: 14, fontWeight: 600, fontFamily: "Poppins" }}>
         Book cover:
       </Typography>
