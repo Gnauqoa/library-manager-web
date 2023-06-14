@@ -39,8 +39,9 @@ const MyInput = ({
         <></>
       )}
       <Input
+    
         onBlur={onBlur}
-        defaultValue={value}
+        value={value}
         autoComplete={"none"}
         disabled={disabled}
         onChange={onChange}

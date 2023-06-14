@@ -78,13 +78,14 @@ const theme = createTheme({
             height: "auto",
             minHeight: 0,
             minWidth: 0,
-            color: "#FFAB00",
+            color: "#242D3F",
+            border: "1px solid #242D3F",
             background: "transparent",
             ":hover": {
-              color: "#CC8900",
+              color: "#242D3F",
             },
             ":focus": {
-              color: "#CC8900",
+              color: "#242D3F",
             },
             ":disabled": {
               color: "#ffffff",

@@ -14,17 +14,12 @@ import { useDispatch } from "react-redux";
 
 const UserLogin = () => {
   const [formValue, setFormValue] = useState({ account: "", password: "" });
-  const [errorMessage, setErrorMessage] = useState({
-    account: "",
-    password: "",
-  });
   const loginRequest = useAPI({ queryFn: () => login(formValue) });
   const dispatch = useDispatch();
   const handleLogin = async () => {
     loginRequest
       .run()
       .then((res) => {
-        console.log("success", res);
         dispatch(storeUser(res.data.data));
         dispatch(setLoginStatus({ isChecking: false, isLogin: true }));
         toast.success("Login success");
@@ -32,12 +27,7 @@ const UserLogin = () => {
       .catch((err) => {});
   };
   const isDisable = () => {
-    return (
-      errorMessage.account ||
-      errorMessage.password ||
-      !formValue.account.length ||
-      !formValue.password.length
-    );
+    return !formValue.account.length || !formValue.password.length;
   };
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
@@ -86,11 +76,6 @@ const UserLogin = () => {
         />
         <MyInput
           value={formValue.password}
-          error_message={
-            errorMessage.password
-              ? "Password length must be longer than 8, have 1 uppercase, 1 lowercase and 1 number"
-              : ""
-          }
           onChange={handleChange}
           type="password"
           startIcon={IconLock}

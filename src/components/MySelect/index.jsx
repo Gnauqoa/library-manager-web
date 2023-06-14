@@ -94,15 +94,8 @@ const SelectAtom = ({
               }}
               value={data}
             >
-              <Typography
-                sx={{
-                  color: "#121115",
-                  fontWeight: 500,
-                  fontSize: 16,
-                }}
-              >
+              
                 {data}
-              </Typography>
             </MenuItem>
           ))}
         </Select>
