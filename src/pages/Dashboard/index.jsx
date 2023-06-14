@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import TabBar, { TabControl } from "./TabBar";
 import AddBook from "./AddBook";
 import AddUser from "./AddUserAccount";
+import CreateBorrowForm from "./CreateBorrowForm";
 
 const DashBoard = () => {
   const params = useParams();
@@ -30,6 +31,9 @@ const DashBoard = () => {
         </TabControl>
         <TabControl value="addaccount">
           <AddUser />
+        </TabControl>{" "}
+        <TabControl value="createborrow">
+          <CreateBorrowForm />
         </TabControl>
       </div>
     </div>

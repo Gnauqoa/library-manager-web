@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginStatus } from "reducers/loginStatusReducer";
-import { getAccessTokenFromRefreshToken } from "services/userAuth";
+import { getAccessTokenFromRefreshToken } from "services/managerAuth";
 import { axiosForLibraryAPI } from "services/axios";
 import { toast } from "react-toastify";
 

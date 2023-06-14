@@ -3,7 +3,7 @@ import { ReactComponent as IconProfileCircle } from "assets/icon/icon_profile_ci
 import { ReactComponent as IconLogout } from "assets/icon/icon_logout.svg";
 import { SvgIcon, Typography } from "@mui/material";
 import useAPI from "hooks/useApi";
-import { logout } from "services/userAuth";
+import { logout } from "services/managerAuth";
 import { useDispatch } from "react-redux";
 import { setLoginStatus } from "reducers/loginStatusReducer";
 import { toast } from "react-toastify";

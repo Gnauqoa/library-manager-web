@@ -5,7 +5,7 @@ import { ReactComponent as IconUser } from "assets/icon/icon_user.svg";
 import { ReactComponent as IconLock } from "assets/icon/icon_lock.svg";
 import MyCheckBox from "components/MyCheckBox";
 import { Link } from "react-router-dom";
-import { login } from "services/userAuth";
+import { login } from "services/managerAuth";
 import useAPI from "hooks/useApi";
 import { storeUser } from "reducers/userReducer";
 import { setLoginStatus } from "reducers/loginStatusReducer";
