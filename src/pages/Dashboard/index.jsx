@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import TabBar, { TabControl } from "./TabBar";
 import AddBook from "./AddBook";
+import AddUser from "./AddUserAccount";
 
 const DashBoard = () => {
   const params = useParams();
@@ -26,6 +27,9 @@ const DashBoard = () => {
       <div className="flex flex-col w-full items-center">
         <TabControl value="addbook">
           <AddBook />
+        </TabControl>
+        <TabControl value="addaccount">
+          <AddUser />
         </TabControl>
       </div>
     </div>
