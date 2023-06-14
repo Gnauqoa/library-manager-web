@@ -4,7 +4,7 @@ import { saveAccessToken, saveRefreshToken } from "./localStorage";
 import jwt_decode from "jwt-decode";
 
 const AUTHENTICATION_URLS = {
-  LOGIN: "/v1/user/login",
+  LOGIN: "/v1/manager/login",
   LOGOUT: "/v1/user/current/logout",
   LOGOUT_ALL: "/v1/user/logout_all",
   REFRESH_TOKEN: "/v1/user/refresh_token",
@@ -70,14 +70,15 @@ export const login = (payload) => {
       method: "post",
       url: AUTHENTICATION_URLS.LOGIN,
       data: payload,
-      query: "123",
     })
     .then((response) => {
       axiosForLibraryAPI.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${response.data.data.access_token}`;
+
       saveRefreshToken(response.data.data.refresh_token);
       saveAccessToken(response.data.data.access_token);
+
       return getCurrentUser();
     });
 };
@@ -85,9 +86,12 @@ export const getCurrentUser = () => {
   return axiosForLibraryAPI
     .request({
       method: "get",
-      url: "/v1/user/current",
+      url: "/v1/manager/current",
     })
     .then((response) => {
       return Promise.resolve(response);
+    })
+    .catch((err) => {
+      return Promise.reject(err);
     });
 };

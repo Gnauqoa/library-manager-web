@@ -18,6 +18,7 @@ const useAPI = ({ queryFn, getNow, fnParam }) => {
     return queryFn(param)
       .then((res) => {
         setResponse(res);
+        console.log("Here");
         return Promise.resolve(res);
       })
       .catch((err) => {
@@ -41,7 +42,7 @@ const useAPI = ({ queryFn, getNow, fnParam }) => {
             });
         }
         setResponse(null);
-        toast.error(err.message);
+        toast.error(err?.response?.data.message || err.message);
         setError(err);
         return Promise.reject(err);
       })
@@ -55,10 +56,16 @@ const useAPI = ({ queryFn, getNow, fnParam }) => {
       if (getNow) run(fnParam);
     } catch (err) {}
   };
+  const reset = () => {
+    setResponse(null);
+    setIsFetched(false);
+    setError(null);
+    setLoading(false);
+  };
   useEffect(() => {
     if (getNow) runNow();
   }, []);
-  return { response, run, loading, error, isFetched };
+  return { response, run, reset, loading, error, isFetched };
 };
 
 export default useAPI;

@@ -1,15 +1,24 @@
 import React from "react";
 
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Container } from "@mui/material";
 import { useLocation, Outlet, Navigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
+import MenuNavigate from "./MenuNavigate";
 
-const PrivateRouter = () => {
+const ManagerRouter = () => {
   const loginStatus = useSelector((state) => state.loginStatus);
   const location = useLocation();
   if (!loginStatus.isChecking) {
-    if (loginStatus.isLogin) return <Outlet />;
+    if (loginStatus.isLogin)
+      return (
+        <Container>
+          <div className="flex flex-row gap-[80px] py-[60px]">
+            <MenuNavigate />
+            <Outlet />
+          </div>
+        </Container>
+      );
     return <Navigate state={{ from: location }} to={`/auth/login`} />;
   }
   return (
@@ -19,4 +28,4 @@ const PrivateRouter = () => {
   );
 };
 
-export default PrivateRouter;
+export default ManagerRouter;
