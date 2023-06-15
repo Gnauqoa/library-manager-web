@@ -20,3 +20,13 @@ export const createReturn = async (body) => {
     .then((res) => res.data);
   return data;
 };
+export const createPayFine = async (body) => {
+  const { data } = await axiosForLibraryAPI
+    .request({
+      data: body,
+      method: "post",
+      url: "/v1/manager/createPayFine",
+    })
+    .then((res) => res.data);
+  return data;
+};
