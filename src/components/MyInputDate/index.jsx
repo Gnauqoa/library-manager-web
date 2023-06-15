@@ -18,7 +18,7 @@ const DateDisplay = styled(DatePicker)(({ theme }) => ({
 const MyInputDate = ({ label, ...props }) => {
   return (
     <div className="flex flex-col gap-2">
-      <Typography sx={{ fontSize: 14, fontWeight: 600, fontFamily: "Poppins" }}>
+      <Typography sx={{ fontSize: 14, fontWeight: 400, fontFamily: "Poppins" }}>
         {label}
       </Typography>
       <DateDisplay {...props} />
