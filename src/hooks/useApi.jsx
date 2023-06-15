@@ -18,7 +18,6 @@ const useAPI = ({ queryFn, getNow, fnParam }) => {
     return queryFn(param)
       .then((res) => {
         setResponse(res);
-        console.log("Here");
         return Promise.resolve(res);
       })
       .catch((err) => {

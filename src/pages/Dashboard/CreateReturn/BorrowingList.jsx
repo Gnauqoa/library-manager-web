@@ -70,7 +70,7 @@ const BorrowingList = ({ user_email, setReturnList, return_list }) => {
               const { borrow_date } = borrow_form;
               const max_borrow_days =
                 getBorrowingRequest.response.max_borrow_days;
-              const borrow_days = dayjs().diff(borrow_date, "days");
+              const borrow_days = Math.abs(dayjs().diff(borrow_date, "days"));
               return (
                 <BorrowingItem
                   key={borrow_form.id}

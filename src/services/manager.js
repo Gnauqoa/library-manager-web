@@ -30,3 +30,13 @@ export const createPayFine = async (body) => {
     .then((res) => res.data);
   return data;
 };
+export const getUser = async (params) => {
+  const { data } = await axiosForLibraryAPI
+    .request({
+      params: params,
+      method: "get",
+      url: "/v1/manager/user",
+    })
+    .then((res) => res.data);
+  return data;
+};
