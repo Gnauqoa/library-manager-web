@@ -5,7 +5,7 @@ import { getAccessTokenFromRefreshToken } from "services/managerAuth";
 import { axiosForLibraryAPI } from "services/axios";
 import { toast } from "react-toastify";
 
-const useAPI = ({ queryFn, getNow, fnParam }) => {
+const useAPI = ({ queryFn, getNow, fnParam, alert_error = true }) => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,13 +35,15 @@ const useAPI = ({ queryFn, getNow, fnParam }) => {
             .catch((err2) => {
               dispatch(setLoginStatus({ ...loginStatus, isChecking: true }));
               setResponse(null);
-              toast.error(err.message);
+              if (alert_error)
+                toast.error(err?.response?.data.message || err.message);
               setError(err);
               return Promise.reject(err);
             });
         }
         setResponse(null);
-        toast.error(err?.response?.data.message || err.message);
+        if (alert_error)
+          toast.error(err?.response?.data.message || err.message);
         setError(err);
         return Promise.reject(err);
       })

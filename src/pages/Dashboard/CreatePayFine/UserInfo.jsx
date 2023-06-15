@@ -8,12 +8,12 @@ const UserInfo = ({ user }) => {
         <Typography
           sx={{ fontSize: 16, fontWeight: 400, fontFamily: "Poppins" }}
         >
-          name: {user.first_name + " " + user.last_name}
-        </Typography>{" "}
+          Name: {user.first_name + " " + user.last_name}
+        </Typography>
         <Typography
           sx={{ fontSize: 16, fontWeight: 400, fontFamily: "Poppins" }}
         >
-          unpaid_fine: {user.unpaid_fine}
+          Unpaid fine: {user.unpaid_fine}
         </Typography>
       </div>
     );

@@ -175,7 +175,7 @@ const ResultCard = ({
         )}
       </div>
       <div className="flex flex-col items-center w-[20%]">
-        <MyCheckBox value={isSelect} onChange={handleClick} />
+        <MyCheckBox disabled={!status} value={isSelect} onChange={handleClick} />
       </div>
     </Box>
   );
