@@ -10,8 +10,8 @@ export const createBorrow = async (body) => {
     .then((res) => res.data);
   return data;
 };
-export const createReturn = (body) => {
-  const { data } = axiosForLibraryAPI
+export const createReturn = async (body) => {
+  const { data } = await axiosForLibraryAPI
     .request({
       data: body,
       method: "post",

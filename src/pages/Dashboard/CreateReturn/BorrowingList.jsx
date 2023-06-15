@@ -11,13 +11,21 @@ import MyCheckBox from "components/MyCheckBox";
 import { StyledTableCell } from "components/Table";
 import dayjs from "dayjs";
 import useAPI from "hooks/useApi";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getUserBorrowing } from "services/user";
 import validator from "validator";
-const BorrowingList = ({ user_email }) => {
+
+const BorrowingList = ({ user_email, setReturnList, return_list }) => {
   const getBorrowingRequest = useAPI({
     queryFn: (params) => getUserBorrowing(params),
   });
+  const handleAddReturnList = (id, status, data) => {
+    if (status) return setReturnList((prev) => [...prev, { id: id, ...data }]);
+    setReturnList((prev) => {
+      const index = prev.findIndex((ele) => ele.id === id);
+      return [...prev.slice(0, index), ...prev.slice(index + 1)];
+    });
+  };
   useEffect(() => {
     if (validator.isEmail(user_email || "")) {
       getBorrowingRequest
@@ -40,8 +48,8 @@ const BorrowingList = ({ user_email }) => {
       >
         Book borrowed by user
       </Typography>
-      <TableContainer sx={{ width: "100%" }}>
-        <Table sx={{ width: "100%" }}>
+      <TableContainer sx={{ width: "100%", maxHeight: 300 }}>
+        <Table sx={{ width: "100%" }} stickyHeader>
           <TableHead>
             <TableRow
               sx={{
@@ -65,11 +73,21 @@ const BorrowingList = ({ user_email }) => {
               const borrow_days = dayjs().diff(borrow_date, "days");
               return (
                 <BorrowingItem
+                  key={borrow_form.id}
+                  onAdd={handleAddReturnList}
+                  details_book={borrow_form.book.details_book}
                   img_url={img_url}
                   name={name}
                   borrow_date={borrow_date}
                   borrow_days={borrow_days}
                   max_borrow_days={max_borrow_days}
+                  id={borrow_form.id}
+                  book_id={borrow_form.book.id}
+                  checked={
+                    return_list.findIndex(
+                      (ele) => ele.id === borrow_form.id
+                    ) !== -1
+                  }
                 />
               );
             })}
@@ -79,21 +97,7 @@ const BorrowingList = ({ user_email }) => {
     </div>
   );
 };
-const MyTableRow = ({ children, sx, ...props }) => {
-  return (
-    <TableRow
-      {...props}
-      sx={{
-        width: "100%",
-        transition: "all 0.2s ease",
 
-        ...sx,
-      }}
-    >
-      {children}
-    </TableRow>
-  );
-};
 const BorrowingItem = ({
   id,
   img_url,
@@ -101,9 +105,22 @@ const BorrowingItem = ({
   borrow_days,
   max_borrow_days,
   name,
+  checked,
+  onAdd,
+  book_id,
 }) => {
+  const [checkBox, setCheckBox] = useState(false);
+  useEffect(() => {
+    setCheckBox(checked);
+  }, [checked]);
+  console.log(book_id);
   return (
-    <MyTableRow key={id}>
+    <TableRow
+      sx={{
+        width: "100%",
+        transition: "all 0.2s ease",
+      }}
+    >
       <StyledTableCell sx={{ padding: 1 }} align="center" scope="row">
         <div className="flex flex-col items-center min-w-[60px]  w-full h-[80px] overflow-hidden">
           <img
@@ -147,9 +164,14 @@ const BorrowingItem = ({
         )}
       </StyledTableCell>
       <StyledTableCell align="center">
-        <MyCheckBox />
+        <MyCheckBox
+          value={checkBox}
+          onChange={() =>
+            onAdd(id, !checkBox, { name, borrow_date, img_url, book_id })
+          }
+        />
       </StyledTableCell>
-    </MyTableRow>
+    </TableRow>
   );
 };
 
