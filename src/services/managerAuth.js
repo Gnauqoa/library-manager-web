@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 const AUTHENTICATION_URLS = {
   LOGIN: "/v1/manager/login",
-  LOGOUT: "/v1/user/current/logout",
+  LOGOUT: "/v1/manager/current/logout",
   LOGOUT_ALL: "/v1/user/logout_all",
   REFRESH_TOKEN: "/v1/user/refresh_token",
   REGISTER: "/v1/user/",
@@ -21,14 +21,7 @@ export const getActivity = (per_page, page, type, status) => {
     })
     .then((res) => res.data);
 };
-export const getBorrowingList = () => {
-  return axiosForLibraryAPI
-    .request({
-      url: AUTHENTICATION_URLS.BORROWING_LIST,
-      method: "get",
-    })
-    .then((res) => res.data);
-};
+
 export const validateToken = (token) => {
   if (token === null || token === undefined || token === "") {
     return false;

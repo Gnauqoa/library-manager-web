@@ -28,6 +28,7 @@ const SelectAtom = ({
             fontSize: 14,
             fontWeight: 500,
             color: "#121115",
+            fontFamily: "Poppins",
           }}
         >
           {label}
