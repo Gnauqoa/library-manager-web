@@ -9,6 +9,7 @@ import ReturnList from "./ReturnList";
 import validator from "validator";
 import { toast } from "react-toastify";
 import ResultReturn from "./ResultReturn";
+import SearchBox from "components/SearchBox";
 const defaultForm = { user_email: "", return_date: null };
 
 const CreateReturnForm = () => {
@@ -62,22 +63,23 @@ const CreateReturnForm = () => {
           setFormValue((prev) => ({ ...prev, return_date: value }));
         }}
       />
-      <MyInput
-        label="Reader email"
-        sx={{ width: 400 }}
-        placeholder="Find user borrowing with email"
-        value={formValue.user_email}
-        onChange={(e) => {
-          setFormValue((prev) => ({ ...prev, user_email: e.target.value }));
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
+      <div className="flex flex-col p-4 bg-[#F8F9FB] rounded-[12px] w-full">
+        <SearchBox
+          loading={createRequest.loading}
+          label="Reader email"
+          placeholder="Find user borrowing with email"
+          value={formValue.user_email}
+          setValue={(value) => {
+            setFormValue((prev) => ({ ...prev, user_email: value }));
+          }}
+          onSearch={() => {
             setReturnList([]);
             setEmailSearch(formValue.user_email);
             createRequest.reset();
-          }
-        }}
-      />
+          }}
+        />
+      </div>
+
       {createRequest.isFetched ? (
         <ResultReturn return_result_list={createRequest.response} />
       ) : (

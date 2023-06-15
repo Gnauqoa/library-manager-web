@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { ReactComponent as IconSearch } from "assets/icon/icon_search.svg";
-import MyInput from "components/MyInput";
 import useAPI from "hooks/useApi";
 import { searchBook } from "services/book";
 import ResultBookDetails from "./ResultBookDetails";
 import ResultBooks from "./ResultBooks";
+import SearchBox from "components/SearchBox";
 
 const SearchBook = ({ setBorrowList, borrowList }) => {
   const [bookSearch, setBookSearch] = useState("");
@@ -31,15 +30,12 @@ const SearchBook = ({ setBorrowList, borrowList }) => {
   return (
     <div className="flex flex-col w-full gap-8">
       <div className="flex flex-col p-4 bg-[#F8F9FB] rounded-[12px] w-full">
-        <MyInput
+        <SearchBox
+          loading={searchRequest.loading}
           value={bookSearch}
-          onChange={(e) => setBookSearch(e.target.value)}
-          startIcon={IconSearch}
+          setValue={(value) => setBookSearch(value)}
           placeholder="Find book with name"
-          sx={{ background: "#fff" }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSearch();
-          }}
+          onSearch={handleSearch}
         />
       </div>
       {currentBook ? (

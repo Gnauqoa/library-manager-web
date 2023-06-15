@@ -36,6 +36,7 @@ const BorrowingList = ({ user_email, setReturnList, return_list }) => {
   }, [user_email]);
   if (!validator.isEmail(user_email || "")) return <></>;
   if (!getBorrowingRequest.isFetched) return <CircularProgress />;
+  if (getBorrowingRequest.error) return <></>;
   return (
     <div className="flex flex-col gap-4 w-full">
       <Typography
@@ -65,12 +66,12 @@ const BorrowingList = ({ user_email, setReturnList, return_list }) => {
             </TableRow>
           </TableHead>
           <TableBody sx={{ width: "100%" }}>
-            {getBorrowingRequest.response.items.map((borrow_form) => {
+            {getBorrowingRequest?.response?.items?.map((borrow_form) => {
               const { img_url, name } = borrow_form.book.details_book;
               const { borrow_date } = borrow_form;
               const max_borrow_days =
                 getBorrowingRequest.response.max_borrow_days;
-              const borrow_days = dayjs().diff(borrow_date, "days");
+              const borrow_days = Math.abs(dayjs().diff(borrow_date, "days"));
               return (
                 <BorrowingItem
                   key={borrow_form.id}

@@ -1,6 +1,4 @@
 import {
-  IconButton,
-  SvgIcon,
   Table,
   TableBody,
   TableContainer,
