@@ -83,7 +83,9 @@ const UserLogin = () => {
           name="password"
           placeholder="***************"
         />
-        <MyCheckBox label="Stay sign in" />
+        <div className="flex flex-col items-start">
+          <MyCheckBox label="Stay sign in" />
+        </div>
         <div className="flex flex-col gap-8">
           <Button
             onClick={handleLogin}

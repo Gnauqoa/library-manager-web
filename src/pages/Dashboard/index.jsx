@@ -5,6 +5,7 @@ import TabBar, { TabControl } from "./TabBar";
 import AddBook from "./AddBook";
 import AddUser from "./AddUserAccount";
 import CreateBorrowForm from "./CreateBorrowForm";
+import CreateReturnForm from "./CreateReturn";
 
 const DashBoard = () => {
   const params = useParams();
@@ -34,6 +35,9 @@ const DashBoard = () => {
         </TabControl>{" "}
         <TabControl value="createborrow">
           <CreateBorrowForm />
+        </TabControl>{" "}
+        <TabControl value="createreturn">
+          <CreateReturnForm />
         </TabControl>
       </div>
     </div>
