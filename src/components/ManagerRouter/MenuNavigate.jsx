@@ -1,8 +1,9 @@
-import { Box, Menu, SvgIcon, Typography } from "@mui/material";
+import { Box, SvgIcon, Typography } from "@mui/material";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ReactComponent as IconDashBoard } from "assets/icon/icon_dashboard.svg";
-import { ReactComponent as IconBookSquare } from "assets/icon/icon_book_square.svg";
+import { ReactComponent as IconChart } from "assets/icon/icon_chart.svg";
+import { ReactComponent as IconSetting } from "assets/icon/icon_setting.svg";
 
 const MenuNavigate = () => {
   return (
@@ -19,7 +20,8 @@ const MenuNavigate = () => {
       </Typography>
       <div className="flex flex-col w-[260px]">
         <MenuItem icon={IconDashBoard} name="Dashboard" value="dashboard" />
-        <MenuItem icon={IconBookSquare} name="Book lists" value="BookList" />
+        <MenuItem icon={IconChart} name="Statistics reports" value="reports" />
+        <MenuItem icon={IconSetting} name="Settings" value="settings" />
       </div>
     </div>
   );
@@ -44,7 +46,6 @@ const MenuItem = ({ name, icon, value }) => {
           },
           borderTopRightRadius: "8px",
           borderBottomRightRadius: "8px",
-
         }}
       >
         <SvgIcon

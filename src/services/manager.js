@@ -40,3 +40,22 @@ export const getUser = async (params) => {
     .then((res) => res.data);
   return data;
 };
+export const getRule = async () => {
+  const { data } = await axiosForLibraryAPI
+    .request({
+      method: "get",
+      url: "/v1/manager/rule",
+    })
+    .then((res) => res.data);
+  return data;
+};
+export const setRule = async (body) => {
+  const { data } = await axiosForLibraryAPI
+    .request({
+      method: "post",
+      data: body,
+      url: "/v1/manager/rule",
+    })
+    .then((res) => res.data);
+  return data;
+};
