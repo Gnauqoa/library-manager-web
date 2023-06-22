@@ -25,6 +25,7 @@ const useAPI = ({ queryFn, getNow, fnParam, alert_error = true }) => {
           const { method, url, data, params } = err.config;
           return getAccessTokenFromRefreshToken()
             .then((res) => {
+              console.log("Get new token", res);
               return axiosForLibraryAPI
                 .request({ method, url, data, params })
                 .then((res) => {
