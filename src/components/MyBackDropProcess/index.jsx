@@ -3,7 +3,7 @@ import React from "react";
 
 const MyBackDropProcess = ({ open = true }) => {
   return (
-    <Backdrop open={true} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <Backdrop open={open} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <CircularProgress />
     </Backdrop>
   );
