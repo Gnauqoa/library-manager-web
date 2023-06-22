@@ -44,7 +44,7 @@ const TabItem = ({ text, value }) => {
             textAlign: "center",
           }}
         >
-          {text}{" "}
+          {text}
         </Typography>
       </Box>
     </Link>

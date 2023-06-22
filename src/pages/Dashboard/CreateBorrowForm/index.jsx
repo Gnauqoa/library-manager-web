@@ -56,7 +56,7 @@ const CreateBorrowForm = () => {
 
       <MyInput
         label="Reader email"
-        sx={{ width: 200 }}
+        placeholder="User email"
         value={formValue.user_email}
         onChange={(e) =>
           setFormValue((prev) => ({ ...prev, user_email: e.target.value }))

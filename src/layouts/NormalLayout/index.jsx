@@ -1,6 +1,6 @@
 import React from "react";
 import AppBar from "components/AppBar";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Footer from "components/Footer";
 
 const NormalLayout = () => {

@@ -27,7 +27,7 @@ const MyInput = ({
       {label ? (
         <Typography
           sx={{
-            fontSize: 14,
+            fontSize: 20,
             fontWeight: 500,
             color: "#121115",
             fontFamily: "Poppins",
