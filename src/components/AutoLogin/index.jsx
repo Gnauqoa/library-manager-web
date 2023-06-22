@@ -22,9 +22,10 @@ const AutoLogin = () => {
     let { isChecking, isLogin } = loginStatus;
     if (!isChecking) return;
     isChecking = false;
-
+    console.log("refresh token:", getRefreshToken());
     if (validateToken(getRefreshToken())) {
       if (!validateToken(getAccessToken())) {
+        console.log("Get new token with refresh token", getRefreshToken());
         getAccessTokenFromRefreshToken()
           .then((res) => {
             isLogin = true;
@@ -37,6 +38,7 @@ const AutoLogin = () => {
           .finally(() => dispatch(setLoginStatus({ isLogin, isChecking })));
         return;
       }
+      console.log("use old token", getAccessToken());
 
       axiosForLibraryAPI.defaults.headers.common[
         "Authorization"
@@ -49,8 +51,7 @@ const AutoLogin = () => {
         .catch((err) => {
           isLogin = false;
           removeAccessToken();
-          login();
-          return;
+          return login();
         })
         .finally(() => dispatch(setLoginStatus({ isLogin, isChecking })));
       return;
