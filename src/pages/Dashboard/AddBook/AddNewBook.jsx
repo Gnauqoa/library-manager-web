@@ -10,7 +10,6 @@ import MyInput from "components/MyInput";
 import UploadImage from "components/UploadImg";
 import React, { useState } from "react";
 import { searchAuthor } from "services/author";
-import CategoryInput from "./CategoryInput";
 import { DatePicker } from "@mui/x-date-pickers";
 import { searchPublisher } from "services/publisher";
 import { ReactComponent as IconBookSave } from "assets/icon/icon_book_saved.svg";
@@ -24,6 +23,7 @@ import { language } from "services/language";
 import { toast } from "react-toastify";
 import AddAuthorModal from "./AddAuthorModal";
 import AddPublisherModal from "./AddPublisherModal";
+import { useSelector } from "react-redux";
 
 const DateDisplay = styled(DatePicker)(({ theme }) => ({
   ".MuiInputBase-root": {
@@ -40,6 +40,7 @@ const DateDisplay = styled(DatePicker)(({ theme }) => ({
 }));
 
 const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
+  const rule = useSelector((state) => state.rule);
   const saveRequest = useAPI({
     queryFn: (form_data) => addNewBook(form_data),
   });
@@ -205,10 +206,16 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
           }
         />
       </div>
-      <CategoryInput
-        total_category={formValue.category}
-        setTotalCategory={setFormValue}
+      <SelectAtom
+        label={"Category"}
+        value={formValue.category}
+        multiple
+        optionList={rule.category}
+        onChange={(e) =>
+          setFormValue((prev) => ({ ...prev, category: e.target.value }))
+        }
       />
+
       <SelectAtom
         label="Languages"
         multiple
