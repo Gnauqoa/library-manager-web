@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import MyInput from "components/MyInput";
 import UploadImage from "components/UploadImg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { searchAuthor } from "services/author";
 import { DatePicker } from "@mui/x-date-pickers";
 import { searchPublisher } from "services/publisher";
@@ -73,13 +73,15 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
     data.append("name", formValue.name);
     data.append("book_image", formValue.book_image);
     data.append("release_date", formValue.release_date);
-    data.append("categories", formValue.category);
     data.append("publisher", formValue.publisher.id);
     data.append("description", formValue.description);
     data.append("authors", formValue.author.id);
     data.append("book_count", formValue.book_count);
     formValue.languages.forEach((language) =>
       data.append("languages", language)
+    );
+    formValue.categories.forEach((category) =>
+      data.append("categories", category)
     );
 
     saveRequest
@@ -89,6 +91,7 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
       })
       .catch((err) => {});
   };
+
   return (
     <div className="flex flex-col gap-6">
       <Backdrop open={saveRequest.loading}>

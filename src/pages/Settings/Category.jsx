@@ -13,7 +13,7 @@ import { ReactComponent as IconAddCategory } from "assets/icon/icon_add_category
 const Category = ({ category, setFormValue }) => {
   const [new_category, setNewCategory] = useState("");
   const [search_category, setSearchCategory] = useState("");
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handleAdd = () => {
     setFormValue((prev) => ({
       ...prev,
