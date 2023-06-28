@@ -1,12 +1,13 @@
 import { Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import TabBar, { TabControl } from "./TabBar";
+import TabBar from "./TabBar";
 import AddBook from "./AddBook";
 import AddUser from "./AddUserAccount";
 import CreateBorrowForm from "./CreateBorrowForm";
 import CreateReturnForm from "./CreateReturn";
 import CreatePayFine from "./CreatePayFine";
+import { TabControl } from "components/TabBarItem";
 
 const DashBoard = () => {
   const params = useParams();
@@ -28,19 +29,19 @@ const DashBoard = () => {
       </Typography>
       <TabBar />
       <div className="flex flex-col w-full items-center">
-        <TabControl value="addbook">
+        <TabControl value="/dashboard/addbook">
           <AddBook />
         </TabControl>
-        <TabControl value="addaccount">
+        <TabControl value="/dashboard/addaccount">
           <AddUser />
         </TabControl>{" "}
-        <TabControl value="createborrow">
+        <TabControl value="/dashboard/createborrow">
           <CreateBorrowForm />
         </TabControl>{" "}
-        <TabControl value="createreturn">
+        <TabControl value="/dashboard/createreturn">
           <CreateReturnForm />
         </TabControl>{" "}
-        <TabControl value="payfine">
+        <TabControl value="/dashboard/payfine">
           <CreatePayFine />
         </TabControl>
       </div>

@@ -11,6 +11,7 @@ import AutoLogin from "components/AutoLogin";
 import DashBoard from "pages/Dashboard";
 import ManagerRouter from "components/ManagerRouter";
 import Settings from "pages/Settings";
+import StatisticsReports from "pages/StatisticsReports";
 
 function App() {
   return (
@@ -21,7 +22,12 @@ function App() {
           <Routes>
             <Route path="" element={<NormalLayout />}>
               <Route path="" element={<ManagerRouter />}>
-                <Route index path="dashboard/:tab?" element={<DashBoard />} />{" "}
+                <Route index path="dashboard/:tab?" element={<DashBoard />} />
+                <Route
+                  index
+                  path="statisticsReports/:tab?"
+                  element={<StatisticsReports />}
+                />
                 <Route path="settings" element={<Settings />} />
                 <Route path="" element={<Navigate to="/dashboard" />} />
               </Route>

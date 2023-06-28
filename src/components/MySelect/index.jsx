@@ -17,6 +17,7 @@ const SelectAtom = ({
   onChange,
   optionList = [],
   placeholder,
+  sx,
   ...props
 }) => {
   const [open, toggle] = useToggle();
@@ -47,7 +48,6 @@ const SelectAtom = ({
             />
           )}
           defaultValue={value}
-          {...props}
           value={value}
           displayEmpty
           renderValue={
@@ -61,29 +61,33 @@ const SelectAtom = ({
                   </Typography>
                 )
           }
-          sx={{
-            padding: "0px",
-            "&.MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "#DEDDE1",
-                borderRadius: "12px",
-                padding: "12px 15px",
-                transition: "all 0.2s ease",
-              },
-              "&:hover fieldset": {
-                borderColor: "#DEDDE1",
-                boxShadow: "0px 0px 5px 5px #C3E8FF",
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "primary.main",
-                boxShadow: "0px 0px 5px 5px #C3E8FF",
+          sx={
+            ({
+              padding: "0px",
+              "&.MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "#DEDDE1",
+                  borderRadius: "12px",
+                  padding: "12px 15px",
+                  transition: "all 0.2s ease",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#DEDDE1",
+                  boxShadow: "0px 0px 5px 5px #C3E8FF",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "primary.main",
+                  boxShadow: "0px 0px 5px 5px #C3E8FF",
+                },
               },
             },
-          }}
+            { ...sx })
+          }
           onChange={onChange}
           inputProps={{
             "aria-label": "Without label",
           }}
+          {...props}
         >
           {optionList.map((data, index) => (
             <MenuItem
@@ -95,8 +99,7 @@ const SelectAtom = ({
               }}
               value={data}
             >
-              
-                {data}
+              {data}
             </MenuItem>
           ))}
         </Select>

@@ -21,7 +21,7 @@ const MyInputDate = ({ label, ...props }) => {
       <Typography sx={{ fontSize: 14, fontWeight: 400, fontFamily: "Poppins" }}>
         {label}
       </Typography>
-      <DateDisplay {...props} />
+      <DateDisplay format="DD/MM/YYYY" {...props} />
     </div>
   );
 };
