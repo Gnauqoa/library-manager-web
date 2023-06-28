@@ -1,3 +1,4 @@
+import axios from "axios";
 import { axiosForLibraryAPI } from "./axios";
 
 export const createBorrow = async (body) => {
@@ -55,6 +56,16 @@ export const setRule = async (body) => {
       method: "post",
       data: body,
       url: "/v1/manager/rule",
+    })
+    .then((res) => res.data);
+  return data;
+};
+export const statisticalBorrowBookEachCategory = async (payload) => {
+  const { data } = await axiosForLibraryAPI
+    .request({
+      method: "get",
+      params: payload,
+      url: "/v1/manager/current/statisticalBorrowBookEachCategory",
     })
     .then((res) => res.data);
   return data;

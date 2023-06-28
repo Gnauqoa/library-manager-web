@@ -213,7 +213,7 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
         label={"Category"}
         value={formValue.category}
         multiple
-        optionList={rule.category}
+        optionList={rule?.category}
         onChange={(e) =>
           setFormValue((prev) => ({ ...prev, category: e.target.value }))
         }
