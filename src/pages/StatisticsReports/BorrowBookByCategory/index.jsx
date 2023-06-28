@@ -4,12 +4,13 @@ import useAPI from "hooks/useApi";
 import React, { useEffect, useState } from "react";
 import { statisticalBorrowBookEachCategory } from "services/manager";
 import ItemList from "./ItemList";
-import PageControl from "./PageControl";
+import PageControl from "../PageControl";
 import { Button, CircularProgress, SvgIcon } from "@mui/material";
 import { ReactComponent as IconExcel } from "assets/icon/icon_excel.svg";
 import { utils, write } from "xlsx";
 import { saveAs } from "file-saver";
 import BackDropProcess from "components/BackDropProcess";
+import { saveExcelFile } from "services/saveExcelFIle";
 
 const BorrowBookByCategory = () => {
   const getBorrowRequest = useAPI({
@@ -35,26 +36,16 @@ const BorrowBookByCategory = () => {
         per_page: getBorrowRequest.response.total_items,
       })
       .then((res) => {
-        const data = res.items;
-        const workbook = utils.book_new();
-        const worksheet = utils.json_to_sheet([
-          ...data,
-          {
-            name: "Total borrow",
-            count: getBorrowRequest.response.total_borrow,
-          },
-        ]);
-
-        utils.book_append_sheet(workbook, worksheet, "Sheet 1");
-
-        const excelBuffer = write(workbook, {
-          type: "array",
-          bookType: "xls",
-        });
-        const fileData = new Blob([excelBuffer], {
-          type: "application/vnd.ms-excel",
-        });
-        saveAs(fileData, "data.xls");
+        saveExcelFile(
+          [
+            ...res.items,
+            {
+              name: "Total borrow",
+              count: getBorrowRequest.response.total_borrow,
+            },
+          ],
+          "borrow_book_by_category"
+        );
       })
       .catch((err) => {});
   };
