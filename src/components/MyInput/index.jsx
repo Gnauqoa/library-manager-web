@@ -15,6 +15,7 @@ const MyInput = ({
   value,
   error_message = "",
   onBlur,
+  onClick,
   ...props
 }) => {
   const [invisible, setInvisible] = useState(false);
@@ -39,6 +40,7 @@ const MyInput = ({
         <></>
       )}
       <Input
+        onClick={onClick}
         onBlur={onBlur}
         value={value}
         autoComplete={"none"}

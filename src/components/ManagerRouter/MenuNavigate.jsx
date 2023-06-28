@@ -20,7 +20,7 @@ const MenuNavigate = () => {
       </Typography>
       <div className="flex flex-col w-[260px]">
         <MenuItem icon={IconDashBoard} name="Dashboard" value="dashboard" />
-        <MenuItem icon={IconChart} name="Statistics reports" value="reports" />
+        <MenuItem icon={IconChart} name="Statistics reports" value="statisticsReports" />
         <MenuItem icon={IconSetting} name="Settings" value="settings" />
       </div>
     </div>
