@@ -1,22 +1,17 @@
+import { Button, SvgIcon } from "@mui/material";
+import BackDropProcess from "components/BackDropProcess";
 import MyInputDate from "components/MyInputDate";
 import dayjs from "dayjs";
 import useAPI from "hooks/useApi";
 import React, { useEffect, useState } from "react";
-import { statisticalBorrowBookEachCategory } from "services/manager";
-import ItemList from "./ItemList";
-import PageControl from "./PageControl";
-import { Button, CircularProgress, SvgIcon } from "@mui/material";
 import { ReactComponent as IconExcel } from "assets/icon/icon_excel.svg";
-import { utils, write } from "xlsx";
-import { saveAs } from "file-saver";
-import BackDropProcess from "components/BackDropProcess";
 
-const BorrowBookByCategory = () => {
+const BookReturnLate = () => {
   const getBorrowRequest = useAPI({
-    queryFn: (params) => statisticalBorrowBookEachCategory(params),
+    // queryFn: (params) => statisticalBorrowBookEachCategory(params),
   });
   const getExportData = useAPI({
-    queryFn: (params) => statisticalBorrowBookEachCategory(params),
+    // queryFn: (params) => statisticalBorrowBookEachCategory(params),
   });
   const [current_page, setCurrentPage] = useState(1);
   const [from_date, setFromDate] = useState(dayjs().startOf("month"));
@@ -34,31 +29,9 @@ const BorrowBookByCategory = () => {
         to_date,
         per_page: getBorrowRequest.response.total_items,
       })
-      .then((res) => {
-        const data = res.items;
-        const workbook = utils.book_new();
-        const worksheet = utils.json_to_sheet([
-          ...data,
-          {
-            name: "Total borrow",
-            count: getBorrowRequest.response.total_borrow,
-          },
-        ]);
-
-        utils.book_append_sheet(workbook, worksheet, "Sheet 1");
-
-        const excelBuffer = write(workbook, {
-          type: "array",
-          bookType: "xls",
-        });
-        const fileData = new Blob([excelBuffer], {
-          type: "application/vnd.ms-excel",
-        });
-        saveAs(fileData, "data.xls");
-      })
+      .then((res) => {})
       .catch((err) => {});
   };
-  if (!getBorrowRequest.response) return <CircularProgress />;
   return (
     <div className="flex flex-col gap-4">
       <BackDropProcess open={getExportData.loading} />
@@ -91,23 +64,8 @@ const BorrowBookByCategory = () => {
           }}
         />
       </div>
-      {getBorrowRequest.response && (
-        <>
-          <ItemList
-            current_page={current_page}
-            items={getBorrowRequest.response.items}
-            total_borrow={getBorrowRequest.response.total_borrow}
-            loading={getBorrowRequest.loading}
-          />
-          <PageControl
-            {...getBorrowRequest.response}
-            current_page={current_page}
-            setCurrentPage={setCurrentPage}
-          />
-        </>
-      )}
     </div>
   );
 };
 
-export default BorrowBookByCategory;
+export default BookReturnLate;
