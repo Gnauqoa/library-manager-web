@@ -3,6 +3,7 @@ import TabBar from "./TabBar";
 import { Typography } from "@mui/material";
 import { TabControl } from "components/TabBarItem";
 import BorrowBookByCategory from "./BorrowBookByCategory";
+import BookReturnLate from "./BookReturnLate";
 
 const StatisticsReports = () => {
   return (
@@ -20,6 +21,9 @@ const StatisticsReports = () => {
       <TabBar />
       <TabControl value="/statisticsReports/borrow_book_by_category">
         <BorrowBookByCategory />
+      </TabControl>{" "}
+      <TabControl value="/statisticsReports/return_late">
+        <BookReturnLate />
       </TabControl>
     </div>
   );

@@ -15,7 +15,7 @@ import { searchPublisher } from "services/publisher";
 import { ReactComponent as IconBookSave } from "assets/icon/icon_book_saved.svg";
 import { ReactComponent as IconWriter } from "assets/icon/icon_writer.svg";
 import { ReactComponent as IconPublishing } from "assets/icon/icon_publishing.svg";
-
+import validator from "validator";
 import useAPI from "hooks/useApi";
 import { addNewBook } from "services/book";
 import SelectAtom from "components/MySelect";
@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 import AddAuthorModal from "./AddAuthorModal";
 import AddPublisherModal from "./AddPublisherModal";
 import { useSelector } from "react-redux";
+import BackDropProcess from "components/BackDropProcess";
 
 const DateDisplay = styled(DatePicker)(({ theme }) => ({
   ".MuiInputBase-root": {
@@ -77,11 +78,14 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
     data.append("description", formValue.description);
     data.append("authors", formValue.author.id);
     data.append("book_count", formValue.book_count);
+    data.append("number_of_pages", formValue.number_of_pages);
+    data.append("isbn", formValue.isbn);
+
     formValue.languages.forEach((language) =>
       data.append("languages", language)
     );
-    formValue.categories.forEach((category) =>
-      data.append("categories", category)
+    formValue.category.forEach((name) =>
+      data.append("categories", name)
     );
 
     saveRequest
@@ -94,9 +98,7 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Backdrop open={saveRequest.loading}>
-        <CircularProgress />
-      </Backdrop>
+      <BackDropProcess open={saveRequest.loading}/>
       <AddAuthorModal open={addAuthor} onClose={() => setAddAuthor(false)} />
       <AddPublisherModal
         open={addPublisher}
@@ -145,14 +147,25 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
           }
         />
       </div>
-      <MyInput
-        label="Book name:"
-        placeholder="Book name"
-        value={formValue.name}
-        onChange={(e) =>
-          setFormValue((prev) => ({ ...prev, name: e.target.value }))
-        }
-      />
+      <div className="flex flex-row items-center gap-2">
+        <MyInput
+          label="Book name:"
+          placeholder="Book name"
+          value={formValue.name}
+          onChange={(e) =>
+            setFormValue((prev) => ({ ...prev, name: e.target.value }))
+          }
+        />
+        <MyInput
+          label="ISBN:"
+          placeholder="ISBN"
+          value={formValue.isbn}
+          onChange={(e) => {
+            setFormValue((prev) => ({ ...prev, isbn: e.target.value }));
+          }}
+        />
+      </div>
+
       <MyInput
         value={formValue?.author?.name}
         onClick={() =>
@@ -184,6 +197,7 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
             Publisher Date
           </Typography>
           <DateDisplay
+            views={["year"]}
             value={formValue.release_date}
             onChange={(newValue) =>
               setFormValue((prev) => ({ ...prev, release_date: newValue }))
@@ -236,6 +250,17 @@ const AddNewBook = ({ formValue, setFormValue, setSearchBox }) => {
           }))
         }
         label="Description"
+      />
+      <MyInput
+        value={formValue.number_of_pages}
+        onChange={(e) => {
+          if (validator.isNumeric(e.target.value))
+            setFormValue((prev) => ({
+              ...prev,
+              number_of_pages: e.target.value,
+            }));
+        }}
+        label="Number of page"
       />
       <MyInput
         value={formValue.book_count}

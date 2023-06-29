@@ -70,3 +70,13 @@ export const statisticalBorrowBookEachCategory = async (payload) => {
     .then((res) => res.data);
   return data;
 };
+export const statisticalBookReturnLate = async (payload) => {
+  const { data } = await axiosForLibraryAPI
+    .request({
+      method: "get",
+      params: payload,
+      url: "/v1/manager/current/statisticalBookReturnLate",
+    })
+    .then((res) => res.data);
+  return data;
+};

@@ -12,7 +12,7 @@ const PageControl = ({
   per_page,
 }) => {
   return (
-    <div className="flex flex-row items-center bg-[#F8F9FB] rounded-[12px] p-6 items-center">
+    <div className="flex flex-row bg-[#F8F9FB] rounded-[12px] p-6 items-center">
       <Typography
         sx={{
           fontSize: 16,
