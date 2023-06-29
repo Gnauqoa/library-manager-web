@@ -1,5 +1,4 @@
 import { Button, CircularProgress, Typography } from "@mui/material";
-import MyInput from "components/MyInput";
 import MyInputDate from "components/MyInputDate";
 import useAPI from "hooks/useApi";
 import React, { useState } from "react";
@@ -19,7 +18,6 @@ const CreateReturnForm = () => {
   const [email_search, setEmailSearch] = useState("");
   const createRequest = useAPI({ queryFn: (data) => createReturn(data) });
   const handleReturn = () => {
-    const check = return_list.map((borrow) => borrow.book_id);
     for (let i = 0; i < return_list.length; ++i) {
       const borrow = return_list[i];
       if (dayjs(formValue.return_date).isBefore(borrow.borrow_date)) {
@@ -27,7 +25,6 @@ const CreateReturnForm = () => {
         return;
       }
     }
-
     createRequest
       .run({
         user_email: email_search,
