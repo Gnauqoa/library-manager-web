@@ -74,6 +74,8 @@ const defaultSearchBox = {
 };
 const defaultFormValue = {
   name: "",
+  isbn: "",
+  number_of_pages: 0,
   author: { id: null, name: "" },
   category: [],
   release_date: null,

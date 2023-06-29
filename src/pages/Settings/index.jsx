@@ -54,53 +54,90 @@ const Setting = () => {
         Settings
       </Typography>
       <div className="flex flex-col gap-8 w-full">
-        <div className="flex flex-row items-center gap-3 w-full">
-          <MyInput
-            onChange={handleChange}
-            value={formValue.min_age}
-            name="min_age"
-            label="Min age"
-            placeholder="Min age"
-          />
-          <MyInput
-            onChange={handleChange}
-            value={formValue.max_age}
-            name="max_age"
-            label="Max age"
-            placeholder="Max age"
-          />
-          <MyInput
-            onChange={handleChange}
-            value={formValue.duration}
-            name="duration"
-            label="Duration"
-            placeholder="Duration"
-          />
+        <div className="flex flex-col gap-4 border-[3px] border-[#E55300] rounded-[8px] p-4">
+          <Typography
+            sx={{
+              fontSize: 18,
+              fontWeight: 700,
+              color: "#E55300",
+              fontFamily: "Poppins",
+            }}
+          >
+            User register setting
+          </Typography>
+          <div className="flex flex-row items-center gap-3 w-full">
+            <MyInput
+              onChange={handleChange}
+              value={formValue.min_age}
+              name="min_age"
+              label="User min age"
+              placeholder="Min age"
+            />
+            <MyInput
+              onChange={handleChange}
+              value={formValue.max_age}
+              name="max_age"
+              label="User max age"
+              placeholder="Max age"
+            />
+            <MyInput
+              onChange={handleChange}
+              value={formValue.duration}
+              name="duration"
+              label="Expire time (month)"
+              placeholder="month"
+            />
+          </div>
         </div>
-        <div className="flex flex-row items-center gap-3">
-          <MyInput
-            onChange={handleChange}
-            value={formValue.publish_year_gap}
-            name="publish_year_gap"
-            label="Publish year gap"
-            placeholder="Publish year gap"
-          />
+        <div className="flex flex-col gap-4 border-[3px] border-[#0098b3] rounded-[8px] p-4">
+          <Typography
+            sx={{
+              fontSize: 18,
+              fontWeight: 700,
+              color: "#0098b3",
+              fontFamily: "Poppins",
+            }}
+          >
+            Book settings
+          </Typography>
+          <div className="flex flex-row items-center gap-3">
+            <MyInput
+              onChange={handleChange}
+              value={formValue.publish_year_gap}
+              name="publish_year_gap"
+              label="Book publish year gap (year)"
+              placeholder="year"
+            />
+          </div>
+          <Category category={formValue.category} setFormValue={setFormValue} />
         </div>
-        <div className="flex flex-row items-center gap-3">
-          <MyInput
-            onChange={handleChange}
-            value={formValue.max_book_bowwow}
-            label="Maximum number of borrowing books"
-            placeholder="Maximum number of borrowing books"
-          />
-          <MyInput
-            onChange={handleChange}
-            value={formValue.max_days_borrow}
-            label="Maximum number of borrowing days"
-            placeholder="Maximum number of borrowing days"
-          />
+        <div className="flex flex-col gap-4 border-[3px] border-[#4444d5] rounded-[8px] p-4">
+          <Typography
+            sx={{
+              fontSize: 18,
+              fontWeight: 700,
+              color: "#4444d5",
+              fontFamily: "Poppins",
+            }}
+          >
+            Borrow settings
+          </Typography>
+          <div className="flex flex-row items-center gap-3">
+            <MyInput
+              onChange={handleChange}
+              value={formValue.max_book_bowwow}
+              label="Maximum number of borrowing books"
+              placeholder="Maximum number of borrowing books"
+            />
+            <MyInput
+              onChange={handleChange}
+              value={formValue.max_days_borrow}
+              label="Maximum number of borrowing days"
+              placeholder="Maximum number of borrowing days"
+            />
+          </div>
         </div>
-        <Category category={formValue.category} setFormValue={setFormValue} />
+
         <Button
           onClick={handleSave}
           disabled={formValue === rule}

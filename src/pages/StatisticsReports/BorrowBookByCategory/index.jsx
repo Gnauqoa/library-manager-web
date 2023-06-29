@@ -7,8 +7,6 @@ import ItemList from "./ItemList";
 import PageControl from "../PageControl";
 import { Button, CircularProgress, SvgIcon } from "@mui/material";
 import { ReactComponent as IconExcel } from "assets/icon/icon_excel.svg";
-import { utils, write } from "xlsx";
-import { saveAs } from "file-saver";
 import BackDropProcess from "components/BackDropProcess";
 import { saveExcelFile } from "services/saveExcelFIle";
 
