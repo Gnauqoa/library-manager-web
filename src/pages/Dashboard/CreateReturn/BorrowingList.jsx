@@ -114,7 +114,6 @@ const BorrowingItem = ({
   useEffect(() => {
     setCheckBox(checked);
   }, [checked]);
-  console.log(book_id);
   return (
     <TableRow
       sx={{

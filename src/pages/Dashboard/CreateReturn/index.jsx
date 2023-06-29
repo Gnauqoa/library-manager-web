@@ -10,6 +10,7 @@ import validator from "validator";
 import { toast } from "react-toastify";
 import ResultReturn from "./ResultReturn";
 import SearchBox from "components/SearchBox";
+import dayjs from "dayjs";
 const defaultForm = { user_email: "", return_date: null };
 
 const CreateReturnForm = () => {
@@ -18,6 +19,15 @@ const CreateReturnForm = () => {
   const [email_search, setEmailSearch] = useState("");
   const createRequest = useAPI({ queryFn: (data) => createReturn(data) });
   const handleReturn = () => {
+    const check = return_list.map((borrow) => borrow.book_id);
+    for (let i = 0; i < return_list.length; ++i) {
+      const borrow = return_list[i];
+      if (dayjs(formValue.return_date).isBefore(borrow.borrow_date)) {
+        toast.error("Return date is note valid");
+        return;
+      }
+    }
+
     createRequest
       .run({
         user_email: email_search,
