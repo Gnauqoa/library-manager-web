@@ -40,8 +40,8 @@ const ResultCard = ({
 }) => {
   const img_class =
     type === "head"
-      ? "min-w-[60px] h-[0px] overflow-hidden"
-      : "min-w-[60px] h-[80px] overflow-hidden";
+      ? "w-[200px] h-[0px] overflow-hidden"
+      : "w-[200px] h-[80px] overflow-hidden";
   return (
     <div onClick={onClick}>
       <Box
@@ -60,8 +60,8 @@ const ResultCard = ({
           cursor: "pointer",
         }}
       >
-        <div className={img_class}>
-          <img alt="" src={img_url} className="w-full h-auto object-cover" />
+        <div className={"h-[80px] min-w-[60px] flex flex-col items-center justify-center"}>
+          <img alt="" src={img_url} className="h-full w-auto object-cover" />
         </div>
         <Typography
           sx={{
